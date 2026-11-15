@@ -32,9 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('app-settings.')
         ->group(function () {
             Route::redirect('/', '/pengaturan/unit');
-            Route::get('unit', [AppSettingsController::class, 'units'])->name('units');
-            Route::patch('unit/{unit}', [AppSettingsController::class, 'toggleUnit'])->name('units.toggle');
+            Route::livewire('unit', 'pages::admin.app-settings.units')->name('units');
             Route::get('modul', [AppSettingsController::class, 'modules'])->name('modules');
+
+            // Tahun ajaran (global).
+            Route::livewire('tahun-ajaran', 'pages::admin.app-settings.academic-periods')->name('academic-periods');
         });
 
     // Semua halaman unit: /{kode-unit}.
@@ -57,7 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::livewire('siswa/{student}/edit', 'pages::kesiswaan.students.form')
                     ->whereNumber('student')->name('students.edit');
 
-                // Calon siswa (pendaftar PPDB): tinjau dan setujui.
+                // Calon siswa.
                 Route::livewire('calon-siswa', 'pages::kesiswaan.registrations.index')->name('registrations.index');
                 Route::get('calon-siswa/{registration}/bukti', RegistrationProofController::class)
                     ->whereNumber('registration')->name('registrations.proof');

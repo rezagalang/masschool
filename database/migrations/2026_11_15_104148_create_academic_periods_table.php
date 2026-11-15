@@ -17,8 +17,11 @@ return new class extends Migration
             $table->year('start_year');
             $table->year('end_year');
             $table->string('semester', 10);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_admission')->default(false);
+            $table->unique(['start_year', 'semester']);
             $table->timestamps();
         });
     }

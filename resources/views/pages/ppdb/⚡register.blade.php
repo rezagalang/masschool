@@ -4,6 +4,7 @@ use App\Livewire\Concerns\WithRegionSelects;
 use App\Models\Kesiswaan\Registration;
 use App\Models\Kesiswaan\Student;
 use App\Models\Unit;
+use App\Support\AcademicYear;
 use App\Support\Kesiswaan\RegistrationFields;
 use App\Support\UnitDatabase;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,10 @@ new #[Title('Pendaftaran Siswa Baru')] #[Layout('layouts::public')] class extend
     #[Locked]
     public bool $submitted = false;
 
+    // PPDB ditutup: tidak ada periode yang dibuka di Pengaturan > Tahun Ajaran.
+    #[Locked]
+    public bool $closed = false;
+
     #[Locked]
     public string $noPendaftaran = '';
 
@@ -50,6 +55,7 @@ new #[Title('Pendaftaran Siswa Baru')] #[Layout('layouts::public')] class extend
         $this->unitCode = $unit->code;
         // Nama lengkap unit (kolom name); kalau kosong pakai nama singkat (kolom unit).
         $this->unitName = $unit->name ?: $unit->unit;
+        $this->closed = ! AcademicYear::hasAdmission();
         $this->form = RegistrationFields::defaults();
     }
 
@@ -138,6 +144,13 @@ new #[Title('Pendaftaran Siswa Baru')] #[Layout('layouts::public')] class extend
     public function save(): void
     {
         if ($this->submitted) {
+            return;
+        }
+
+        // PPDB bisa ditutup saat form masih terbuka di browser pendaftar.
+        if (! AcademicYear::hasAdmission()) {
+            $this->closed = true;
+
             return;
         }
 
@@ -263,7 +276,19 @@ new #[Title('Pendaftaran Siswa Baru')] #[Layout('layouts::public')] class extend
         </div>
     </div>
 
-    @if ($submitted)
+    @if ($closed)
+        <flux:card class="mx-auto w-full max-w-xl space-y-4 text-center">
+            <div class="mx-auto flex size-14 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
+                <flux:icon name="lock-closed" class="size-8 text-zinc-500 dark:text-zinc-400" />
+            </div>
+
+            <flux:heading size="lg">{{ __('Pendaftaran Belum Dibuka') }}</flux:heading>
+
+            <flux:text>
+                {{ __('Saat ini') }} {{ $unitName }} {{ __('belum membuka pendaftaran siswa baru. Silakan hubungi pihak sekolah untuk informasi lebih lanjut.') }}
+            </flux:text>
+        </flux:card>
+    @elseif ($submitted)
         <flux:card class="mx-auto w-full max-w-xl space-y-4 text-center">
             <div class="mx-auto flex size-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/40">
                 <flux:icon name="check-circle" class="size-8 text-green-600 dark:text-green-400" />

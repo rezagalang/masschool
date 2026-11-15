@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Kesiswaan\Student;
 use App\Models\Unit;
+use App\Support\AcademicYear;
 use App\Support\Kesiswaan\StudentFields;
 use App\Support\UnitDatabase;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,9 @@ class StudentSeeder extends Seeder
     public function run(): void
     {
         $faker = fake('id_ID');
+
+        // Pastikan tahun ajaran (database pusat) tersedia untuk data contoh.
+        $this->call(AcademicPeriodSeeder::class);
 
         foreach (Unit::orderBy('id')->get() as $unit) {
             if (! UnitDatabase::exists($unit)) {
@@ -57,9 +61,12 @@ class StudentSeeder extends Seeder
         $birth = $faker->dateTimeBetween("-{$level['age'][1]} years", "-{$level['age'][0]} years");
         $now = now();
 
-        // Tahun ajaran: dominan 3 tahun terakhir.
-        $years = array_keys(StudentFields::tahunAjaranOptions());
-        $tahun = $faker->randomElement(array_slice($years, 0, 3));
+        $current = StudentFields::currentTahunAjaran();
+        $years = array_values(array_filter(
+            array_keys(AcademicYear::options()),
+            fn (string $year) => $year <= $current
+        ));
+        $tahun = $faker->randomElement(array_slice($years, 0, 3) ?: [$current]);
 
         return [
             'nis' => $nis,
