@@ -427,7 +427,7 @@ new #[Title('Pendaftaran Siswa Baru')] #[Layout('layouts::public')] class extend
                                                         x-on:beforeinput="if ($el.inputMode === 'numeric' && $event.data && /\D/.test($event.data)) $event.preventDefault()" />
                                                 @endif
 
-                                                <flux:error :name="$errorKey" class="mt-0! text-xs!" />
+                                                <flux:error :name="$errorKey" class="mt-0! text-xs! [&_svg]:size-3!" />
                                             </flux:field>
                                         </x-field-col>
                                     @endforeach

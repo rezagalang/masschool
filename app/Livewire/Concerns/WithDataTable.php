@@ -380,7 +380,8 @@ trait WithDataTable
     {
         if ($name === 'selected' || $name === 'selectAll'
             || str_starts_with($name, 'selected.') || str_starts_with($name, 'paginators')
-            || str_starts_with($name, 'visibleColumns')) {
+            || str_starts_with($name, 'visibleColumns')
+            || $name === 'form' || str_starts_with($name, 'form.')) {
             return;
         }
 

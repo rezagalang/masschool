@@ -48,10 +48,17 @@
             @if (! empty($head['actions']))
                 <div class="flex flex-wrap items-center gap-2">
                     @foreach ($head['actions'] as $action)
-                        <flux:button :variant="$action['variant'] ?? 'filled'" :icon="$action['icon'] ?? null"
-                            :href="$action['href'] ?? null" wire:navigate>
-                            {{ $action['label'] }}
-                        </flux:button>
+                        @if (! empty($action['click']))
+                            <flux:button :variant="$action['variant'] ?? 'filled'" :icon="$action['icon'] ?? null"
+                                wire:click="{{ $action['click'] }}">
+                                {{ $action['label'] }}
+                            </flux:button>
+                        @else
+                            <flux:button :variant="$action['variant'] ?? 'filled'" :icon="$action['icon'] ?? null"
+                                :href="$action['href'] ?? null" wire:navigate>
+                                {{ $action['label'] }}
+                            </flux:button>
+                        @endif
                     @endforeach
                 </div>
             @endif

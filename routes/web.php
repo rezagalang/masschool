@@ -59,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::livewire('siswa/{student}/edit', 'pages::kesiswaan.students.form')
                     ->whereNumber('student')->name('students.edit');
 
+                // Master kelas.
+                Route::livewire('kelas', 'pages::kesiswaan.classes.index')->name('classes.index');
+
                 // Calon siswa.
                 Route::livewire('calon-siswa', 'pages::kesiswaan.registrations.index')->name('registrations.index');
                 Route::get('calon-siswa/{registration}/bukti', RegistrationProofController::class)

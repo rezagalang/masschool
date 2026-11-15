@@ -19,6 +19,12 @@ return [
                 'route' => 'kesiswaan.students.index',
                 'active' => 'kesiswaan.students.*',
             ],
+            [
+                'label' => 'Kelas',
+                'icon' => 'rectangle-stack',
+                'route' => 'kesiswaan.classes.index',
+                'active' => 'kesiswaan.classes.*',
+            ],
         ],
     ],
     'keuangan' => [

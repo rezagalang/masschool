@@ -223,5 +223,5 @@
     <p x-show="clientError" x-cloak role="alert" class="text-sm font-medium text-red-500 dark:text-red-400"
         x-text="clientError"></p>
 
-    <flux:error :name="$property" />
+    <flux:error :name="$property" class="mt-0! text-xs! [&_svg]:size-3!" />
 </div>
