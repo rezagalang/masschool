@@ -1,7 +1,7 @@
 @props([
     'table',                // komponen Livewire ($this)
     'header' => true,       // tampilkan judul + tombol header
-    'flash' => true,        // tampilkan session('status')
+    'flash' => true,        // tampilkan session('status') sebagai toast
     'selectable' => true,   // kolom checkbox + bulk bar
     'exportable' => true,   // tombol export
     'loadingTargets' => 'search,perPage,sort,gotoPage,nextPage,previousPage,resetFilters,bulkDelete,deleteRow',
@@ -58,11 +58,9 @@
         </div>
     @endif
 
-    <!-- Notifikasi setelah simpan/ubah (hilang otomatis) -->
+    <!-- Notifikasi setelah simpan/ubah: toast Flux (flash session dari halaman sebelumnya) -->
     @if ($flash && session('status'))
-        <div x-data="{ open: true }" x-init="setTimeout(() => open = false, 4000)" x-show="open"
-            x-transition.opacity.duration.300ms>
-            <flux:callout variant="success" icon="check-circle" :heading="session('status')" />
+        <div x-data x-init="$nextTick(() => $flux.toast({ text: @js(session('status')), variant: 'success' }))" class="hidden">
         </div>
     @endif
 

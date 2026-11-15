@@ -3,6 +3,7 @@
 namespace App\Support\Kesiswaan;
 
 use App\Models\Kesiswaan\Student;
+use App\Support\AcademicYear;
 use Illuminate\Validation\Rule;
 
 /** Definisi terpusat field form/detail siswa (tab, label, tipe, panjang) untuk form/show. */
@@ -169,7 +170,7 @@ class StudentFields
             'e_kewarganegaraan' => 'WNI',
             'f_kewarganegaraan' => 'WNI',
             'g_kewarganegaraan' => 'WNI',
-            'tahunajaran' => self::currentTahunAjaran(),
+            'tahunajaran' => self::defaultTahunAjaran(),
         ]);
     }
 
@@ -245,30 +246,27 @@ class StudentFields
         return $data;
     }
 
-    /** Opsi tahun ajaran: 4 tahun lalu s.d. tahun depan, format 2026/2027. */
+    /** Opsi tahun ajaran (YYYY/YYYY) dari PPDB aktif (`academic_periods`); default semua jika kosong. */
     public static function tahunAjaranOptions(): array
     {
-        $options = [];
-        $start = (int) date('Y') + 1;
-
-        for ($year = $start; $year >= $start - 5; $year--) {
-            $label = $year . '/' . ($year + 1);
-            $options[$label] = $label;
-        }
-
-        return $options;
+        return AcademicYear::admissionOptions() ?: AcademicYear::options();
     }
 
-    /** Tahun ajaran berjalan (Juli = awal tahun ajaran baru). */
+    /** Pilihan awal form: tahun ajaran aktif bila termasuk opsi, jika tidak PPDB terdekat. */
+    public static function defaultTahunAjaran(): string
+    {
+        $options = self::tahunAjaranOptions();
+        $active = self::currentTahunAjaran();
+
+        return isset($options[$active])
+            ? $active
+            : (AcademicYear::defaultAdmissionName() ?? (string) array_key_first($options));
+    }
+
+    /** Tahun ajaran berjalan (periode aktif di academic_periods). */
     public static function currentTahunAjaran(): string
     {
-        $year = (int) date('Y');
-
-        if ((int) date('n') < 7) {
-            $year--;
-        }
-
-        return $year . '/' . ($year + 1);
+        return AcademicYear::activeName();
     }
 
     /** Field data orang tua/wali. */

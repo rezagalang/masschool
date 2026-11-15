@@ -2,7 +2,9 @@
 
 namespace App\Support\Kesiswaan;
 
+use App\Support\AcademicYear;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 
 /** Field form PPDB (sinkron StudentFields; tanpa NIS, tambah bukti transfer). */
 class RegistrationFields
@@ -16,6 +18,9 @@ class RegistrationFields
         $tabs = StudentFields::tabs();
 
         unset($tabs['data_diri']['fields']['nis']);
+
+        // Tahun ajaran PPDB: hanya periode yang dibuka untuk pendaftaran (bisa lebih dari satu).
+        $tabs['data_diri']['fields']['tahunajaran']['options'] = AcademicYear::admissionOptions();
 
         $tabs['lampiran'] = [
             'label' => 'Lampiran',
@@ -39,6 +44,8 @@ class RegistrationFields
 
         unset($defaults['nis']);
 
+        $defaults['tahunajaran'] = AcademicYear::defaultAdmissionName() ?? '';
+
         return $defaults;
     }
 
@@ -48,6 +55,9 @@ class RegistrationFields
         $rules = StudentFields::rules();
 
         unset($rules['form.nis']);
+
+        // Tahun ajaran harus salah satu periode PPDB yang dibuka.
+        $rules['form.tahunajaran'][] = Rule::in(AcademicYear::admissionNames());
 
         $rules['proof'] = [
             'required',

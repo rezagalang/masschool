@@ -15,11 +15,15 @@
 
     <flux:navbar class="-mb-px border-b border-zinc-200 dark:border-white/10">
         <flux:navbar.item icon="building-office-2" :href="route('app-settings.units')"
-            :current="request()->routeIs('app-settings.units*')" wire:navigate>
+            :current="($tab ?? null) === 'units'" wire:navigate>
             Unit
         </flux:navbar.item>
+        <flux:navbar.item icon="calendar-days" :href="route('app-settings.academic-periods')"
+            :current="($tab ?? null) === 'academic-periods'" wire:navigate>
+            Tahun Ajaran
+        </flux:navbar.item>
         <flux:navbar.item icon="squares-2x2" :href="route('app-settings.modules')"
-            :current="request()->routeIs('app-settings.modules')" wire:navigate>
+            :current="($tab ?? null) === 'modules'" wire:navigate>
             Modul
         </flux:navbar.item>
     </flux:navbar>
