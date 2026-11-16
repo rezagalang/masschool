@@ -5,6 +5,7 @@ namespace App\Models\Kesiswaan;
 use App\Models\UnitModel;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Guarded(['id'])]
 class Student extends UnitModel
@@ -18,6 +19,12 @@ class Student extends UnitModel
             'g_ttl2' => 'date',
             'tglentry' => 'date',
         ];
+    }
+
+    // Riwayat kelas siswa per periode akademik.
+    public function histories(): HasMany
+    {
+        return $this->hasMany(StudentHistory::class);
     }
 
     // Pencarian NIS, NISN, NIK, nama, atau email.

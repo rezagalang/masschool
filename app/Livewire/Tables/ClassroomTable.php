@@ -12,7 +12,7 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-/** Datatable Kelas + modal tambah/ubah. */
+/** Datatable Kelas + modal. */
 class ClassroomTable extends Component
 {
     use WithDataTable;
@@ -97,8 +97,7 @@ class ClassroomTable extends Component
         $this->refreshDataTable();
     }
 
-    // Error validasi hilang otomatis begitu isian diperbaiki.
-    // $key null bila seluruh array `form` yang diperbarui (bukan satu field).
+    // Error validasi hilang otomatis saat diperbaiki. $key null jika seluruh array `form` diperbarui.
     public function updatedForm($value, ?string $key = null): void
     {
         if ($key === null) {

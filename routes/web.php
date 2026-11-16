@@ -62,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 // Master kelas.
                 Route::livewire('kelas', 'pages::kesiswaan.classes.index')->name('classes.index');
 
+                // Pengelompokan siswa ke kelas per tahun ajaran.
+                Route::livewire('pengelompokan', 'pages::kesiswaan.groupings.index')->name('groupings.index');
+
                 // Calon siswa.
                 Route::livewire('calon-siswa', 'pages::kesiswaan.registrations.index')->name('registrations.index');
                 Route::get('calon-siswa/{registration}/bukti', RegistrationProofController::class)

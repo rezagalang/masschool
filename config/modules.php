@@ -25,6 +25,12 @@ return [
                 'route' => 'kesiswaan.classes.index',
                 'active' => 'kesiswaan.classes.*',
             ],
+            [
+                'label' => 'Pengelompokan',
+                'icon' => 'user-group',
+                'route' => 'kesiswaan.groupings.index',
+                'active' => 'kesiswaan.groupings.*',
+            ],
         ],
     ],
     'keuangan' => [

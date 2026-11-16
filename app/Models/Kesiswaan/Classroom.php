@@ -5,6 +5,7 @@ namespace App\Models\Kesiswaan;
 use App\Models\UnitModel;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /** Master kelas per unit (tabel `classes`). "Class" tidak bisa dipakai sebagai nama class PHP. */
 #[Guarded(['id'])]
@@ -17,6 +18,12 @@ class Classroom extends UnitModel
         return [
             'nourut' => 'integer',
         ];
+    }
+
+    // Penempatan siswa di kelas ini (semua periode).
+    public function histories(): HasMany
+    {
+        return $this->hasMany(StudentHistory::class, 'class_id');
     }
 
     // Pencarian nama kelas atau jenjang.
