@@ -399,14 +399,19 @@
                 </span>
 
                 @if (! $table->selectAll && $paginated && $pageSelected && $total > $selectedCount)
-                    <flux:button size="xs" variant="subtle" wire:click="selectAllResults">
+                    <flux:button size="xs" variant="subtle" icon="check-circle" wire:click="selectAllResults">
                         {{ __('Pilih semua :total', ['total' => $fmt($total)]) }}
                     </flux:button>
                 @endif
 
                 <flux:separator vertical class="mx-1 my-1" />
 
-                <flux:button size="xs" variant="ghost" wire:click="clearSelection">{{ __('Batal') }}</flux:button>
+                <flux:button size="xs" variant="ghost" icon="x-mark" wire:click="clearSelection">{{ __('Batal') }}</flux:button>
+
+                {{-- Aksi massal tambahan dari halaman (opsional): <x-slot:bulk>...</x-slot:bulk> --}}
+                @isset($bulk)
+                    {{ $bulk }}
+                @endisset
 
                 @if ($canBulkDelete)
                     <flux:button size="xs" variant="danger" icon="trash" wire:click="confirmBulkDelete">
@@ -432,9 +437,9 @@
                 <div class="flex gap-2">
                     <flux:spacer />
                     <flux:modal.close>
-                        <flux:button variant="ghost">{{ __('Batal') }}</flux:button>
+                        <flux:button variant="ghost" icon="x-mark">{{ __('Batal') }}</flux:button>
                     </flux:modal.close>
-                    <flux:button variant="danger" wire:click="deleteRow">{{ __('Hapus') }}</flux:button>
+                    <flux:button variant="danger" icon="trash" wire:click="deleteRow">{{ __('Hapus') }}</flux:button>
                 </div>
             </div>
         </flux:modal>
@@ -452,9 +457,9 @@
                 <div class="flex gap-2">
                     <flux:spacer />
                     <flux:modal.close>
-                        <flux:button variant="ghost">{{ __('Batal') }}</flux:button>
+                        <flux:button variant="ghost" icon="x-mark">{{ __('Batal') }}</flux:button>
                     </flux:modal.close>
-                    <flux:button variant="danger" wire:click="bulkDelete">{{ __('Hapus') }}</flux:button>
+                    <flux:button variant="danger" icon="trash" wire:click="bulkDelete">{{ __('Hapus') }}</flux:button>
                 </div>
             </div>
         </flux:modal>

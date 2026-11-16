@@ -61,17 +61,17 @@ new #[Title('Pengelompokan')] class extends StudentGrouping {}; ?>
                     </div>
 
                     @if ($students->total() > 0)
-                        <flux:button size="xs" variant="subtle" wire:click="selectAllResults">
+                        <flux:button size="xs" variant="subtle" icon="user-plus" wire:click="selectAllResults">
                             {{ __('Masukkan semua :total', ['total' => $fmt(min($students->total(), 1000))]) }}
                         </flux:button>
                     @endif
                 </div>
 
                 <div class="grid gap-3 @md:grid-cols-[1fr_auto]">
-                    <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" clearable
+                    <flux:input size="sm" wire:model.live.debounce.300ms="search" icon="magnifying-glass" clearable
                         :placeholder="__('Cari NIS atau nama...')" />
 
-                    <flux:select wire:model.live="status" class="@md:w-44">
+                    <flux:select size="sm" wire:model.live="status" class="@md:w-44">
                         <flux:select.option value="unassigned">{{ __('Belum ada kelas') }}</flux:select.option>
                         <flux:select.option value="assigned">{{ __('Sudah ada kelas') }}</flux:select.option>
                         <flux:select.option value="all">{{ __('Semua siswa') }}</flux:select.option>
@@ -165,13 +165,13 @@ new #[Title('Pengelompokan')] class extends StudentGrouping {}; ?>
             <!-- Kanan: anggota kelas terpilih -->
             <flux:card class="@container flex flex-col gap-4 p-4 sm:p-6">
                 <div class="grid gap-3 @md:grid-cols-2">
-                    <flux:select wire:model.live="classId" :label="__('Masuk ke Kelas')">
+                    <flux:select size="sm" wire:model.live="classId" :label="__('Masuk ke Kelas')">
                         @foreach ($this->classes as $class)
                             <flux:select.option value="{{ $class->id }}">{{ $class->kelas }} ({{ $class->jenjang }})</flux:select.option>
                         @endforeach
                     </flux:select>
 
-                    <flux:select wire:model.live="period" :label="__('Tahun Ajaran')">
+                    <flux:select size="sm" wire:model.live="period" :label="__('Tahun Ajaran')">
                         @foreach ($this->periods as $p)
                             <flux:select.option value="{{ $p->id }}">{{ $p->label() }}</flux:select.option>
                         @endforeach
@@ -269,15 +269,15 @@ new #[Title('Pengelompokan')] class extends StudentGrouping {}; ?>
                 <!-- Layar kecil: Simpan di atas dan selebar layar; layar lebar: sejajar di kanan -->
                 <div class="flex flex-col-reverse gap-2 @md:flex-row @md:items-center">
                     <div class="flex items-center justify-between gap-1 @md:justify-start">
-                        <flux:button size="sm" variant="ghost" wire:click="resetSelection" :disabled="! $summary['changed']">
+                        <flux:button size="sm" variant="ghost" icon="x-mark" wire:click="resetSelection" :disabled="! $summary['changed']">
                             {{ __('Batalkan perubahan') }}
                         </flux:button>
-                        <flux:button size="sm" variant="ghost" wire:click="clearSelection" :disabled="$selected === []">
+                        <flux:button size="sm" variant="ghost" icon="minus-circle" wire:click="clearSelection" :disabled="$selected === []">
                             {{ __('Kosongkan') }}
                         </flux:button>
                     </div>
 
-                    <flux:button variant="primary" class="w-full @md:ml-auto @md:w-auto" wire:click="save"
+                    <flux:button variant="primary" icon="check" class="w-full @md:ml-auto @md:w-auto" wire:click="save"
                         wire:loading.attr="disabled" wire:target="save" :disabled="! $summary['changed']">
                         {{ __('Simpan') }}
                     </flux:button>

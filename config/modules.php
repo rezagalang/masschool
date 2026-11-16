@@ -31,6 +31,12 @@ return [
                 'route' => 'kesiswaan.groupings.index',
                 'active' => 'kesiswaan.groupings.*',
             ],
+            [
+                'label' => 'Aktivasi RFID',
+                'icon' => 'credit-card',
+                'route' => 'kesiswaan.rfid.index',
+                'active' => 'kesiswaan.rfid.*',
+            ],
         ],
     ],
     'keuangan' => [

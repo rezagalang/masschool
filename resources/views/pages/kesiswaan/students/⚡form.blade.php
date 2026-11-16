@@ -324,7 +324,7 @@ new #[Title('Form Siswa')] class extends Component {
                 <flux:text size="sm"><span class="text-red-500">*</span> {{ __('wajib diisi') }}</flux:text>
 
                 <div class="flex items-center gap-2">
-                    <flux:button variant="danger"
+                    <flux:button variant="danger" icon="x-mark"
                         :href="route('kesiswaan.students.index', ['unit' => $unitCode])" wire:navigate>
                         {{ __('Batal') }}
                     </flux:button>

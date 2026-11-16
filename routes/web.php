@@ -65,6 +65,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 // Pengelompokan siswa ke kelas per tahun ajaran.
                 Route::livewire('pengelompokan', 'pages::kesiswaan.groupings.index')->name('groupings.index');
 
+                // Aktivasi kartu RFID siswa.
+                Route::livewire('rfid', 'pages::kesiswaan.rfid.index')->name('rfid.index');
+
                 // Calon siswa.
                 Route::livewire('calon-siswa', 'pages::kesiswaan.registrations.index')->name('registrations.index');
                 Route::get('calon-siswa/{registration}/bukti', RegistrationProofController::class)

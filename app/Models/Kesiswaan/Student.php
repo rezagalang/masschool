@@ -6,6 +6,7 @@ use App\Models\UnitModel;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Guarded(['id'])]
 class Student extends UnitModel
@@ -25,6 +26,12 @@ class Student extends UnitModel
     public function histories(): HasMany
     {
         return $this->hasMany(StudentHistory::class);
+    }
+
+    // Saldo kartu RFID siswa (dicocokkan lewat nomor RFID).
+    public function rfidBalance(): HasOne
+    {
+        return $this->hasOne(RfidBalance::class, 'rfid', 'rfid');
     }
 
     // Pencarian NIS, NISN, NIK, nama, atau email.

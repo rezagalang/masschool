@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rfid_balances', function (Blueprint $table) {
-            $table->id();
+            $table->string('rfid', 30)->primary();
+            $table->bigInteger('saldo')->default(0);
             $table->timestamps();
         });
     }

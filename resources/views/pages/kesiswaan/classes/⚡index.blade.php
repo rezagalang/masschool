@@ -28,10 +28,10 @@ new #[Title('Kelas')] class extends ClassroomTable {}; ?>
                 <flux:spacer />
 
                 <flux:modal.close>
-                    <flux:button variant="danger">{{ __('Batal') }}</flux:button>
+                    <flux:button variant="danger" icon="x-mark">{{ __('Batal') }}</flux:button>
                 </flux:modal.close>
 
-                <flux:button type="submit" variant="primary" wire:loading.attr="disabled" wire:target="save">
+                <flux:button type="submit" variant="primary" icon="check" wire:loading.attr="disabled" wire:target="save">
                     {{ __('Simpan') }}
                 </flux:button>
             </div>

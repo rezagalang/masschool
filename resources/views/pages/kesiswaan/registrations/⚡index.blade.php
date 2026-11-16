@@ -83,7 +83,7 @@ new #[Title('Calon Siswa')] class extends RegistrationTable {}; ?>
 
                         <div class="ms-auto flex gap-2">
                             <flux:modal.close>
-                                <flux:button variant="danger">{{ __('Tutup') }}</flux:button>
+                                <flux:button variant="danger" icon="x-mark">{{ __('Tutup') }}</flux:button>
                             </flux:modal.close>
 
                             <flux:button variant="primary" icon="check" wire:click="approve"
@@ -104,7 +104,7 @@ new #[Title('Calon Siswa')] class extends RegistrationTable {}; ?>
 
                         <div class="ms-auto flex gap-2">
                             <flux:modal.close>
-                                <flux:button variant="ghost">{{ __('Tutup') }}</flux:button>
+                                <flux:button variant="ghost" icon="x-mark">{{ __('Tutup') }}</flux:button>
                             </flux:modal.close>
 
                             @if ($student)

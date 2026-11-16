@@ -235,7 +235,7 @@ new #[Title('App Settings')] #[Layout('layouts::app.header')] class extends Comp
 
                 <div class="flex justify-end gap-2">
                     <flux:modal.close>
-                        <flux:button type="button" variant="ghost">Batal</flux:button>
+                        <flux:button type="button" variant="ghost" icon="x-mark">Batal</flux:button>
                     </flux:modal.close>
 
                     <flux:button type="submit" variant="danger" icon="power">Nonaktifkan</flux:button>
