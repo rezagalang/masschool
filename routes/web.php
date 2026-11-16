@@ -53,6 +53,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Modul Kesiswaan.
             Route::prefix('kesiswaan')->name('kesiswaan.')->group(function () {
                 Route::livewire('siswa', 'pages::kesiswaan.students.index')->name('students.index');
+
+                // Laporan: log perubahan RFID.
+                Route::livewire('siswa/logrfid', 'pages::kesiswaan.rfid-logs.index')->name('rfid-logs.index');
                 Route::livewire('siswa/tambah', 'pages::kesiswaan.students.form')->name('students.create');
                 Route::livewire('siswa/{student}', 'pages::kesiswaan.students.show')
                     ->whereNumber('student')->name('students.show');
@@ -64,6 +67,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 // Pengelompokan siswa ke kelas per tahun ajaran.
                 Route::livewire('pengelompokan', 'pages::kesiswaan.groupings.index')->name('groupings.index');
+
+                // Absensi harian siswa.
+                Route::livewire('absensi', 'pages::kesiswaan.attendances.index')->name('attendances.index');
+
+                // Laporan: rekap absensi siswa.
+                Route::livewire('absensi/rekap', 'pages::kesiswaan.attendance-recap.index')->name('attendance-recap.index');
 
                 // Aktivasi kartu RFID siswa.
                 Route::livewire('rfid', 'pages::kesiswaan.rfid.index')->name('rfid.index');

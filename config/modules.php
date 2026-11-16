@@ -37,6 +37,27 @@ return [
                 'route' => 'kesiswaan.rfid.index',
                 'active' => 'kesiswaan.rfid.*',
             ],
+            [
+                'label' => 'Absensi Siswa',
+                'icon' => 'clipboard-document-check',
+                'route' => 'kesiswaan.attendances.index',
+                'active' => 'kesiswaan.attendances.*',
+            ],
+            // Item group tampil di bawah judul grup di sidebar.
+            [
+                'label' => 'Rekap Absensi Siswa',
+                'icon' => 'chart-bar',
+                'route' => 'kesiswaan.attendance-recap.index',
+                'active' => 'kesiswaan.attendance-recap.*',
+                'group' => 'Laporan',
+            ],
+            [
+                'label' => 'Log Perubahan RFID',
+                'icon' => 'clock',
+                'route' => 'kesiswaan.rfid-logs.index',
+                'active' => 'kesiswaan.rfid-logs.*',
+                'group' => 'Laporan',
+            ],
         ],
     ],
     'keuangan' => [

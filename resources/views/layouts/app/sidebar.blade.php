@@ -98,7 +98,19 @@
                 </flux:sidebar.item>
 
                 <!-- Menu khusus modul: isi kunci 'menu' di config/modules.php. -->
+                @php $lastGroup = null; @endphp
+
                 @foreach ($currentModule['menu'] ?? [] as $item)
+                    <!-- Judul grup (mis. Laporan) muncul sekali sebelum item pertama grup tsb -->
+                    @if (! empty($item['group']) && $item['group'] !== $lastGroup)
+                        @php $lastGroup = $item['group']; @endphp
+
+                        <div
+                            class="mt-2 px-3 py-2 text-xs leading-none text-zinc-400 [[data-flux-sidebar-collapsed-desktop]_&]:hidden">
+                            {{ $item['group'] }}
+                        </div>
+                    @endif
+
                     <flux:sidebar.item :icon="$item['icon'] ?? 'minus'"
                         :href="route($item['route'], ['unit' => $currentUnit])"
                         :current="request()->routeIs($item['active'] ?? $item['route'])" wire:navigate>
