@@ -15,16 +15,18 @@
         <flux:menu.separator />
         <flux:menu.radio.group>
             @if ($header)
-                <!-- Di header: Pengaturan aplikasi (global), hanya Kepala Sekolah -->
+                <!-- Hanya di header (Pilih Unit/Modul, Preferences, Settings): sidebar cukup Log out -->
+                <flux:menu.item :href="route('profile.edit')" icon="adjustments-horizontal" wire:navigate>
+                    {{ __('Preferences') }}
+                </flux:menu.item>
+
                 @if (auth()->user()->hasRole('Kepala Sekolah'))
-                    <flux:menu.item :href="route('app-settings.units')" icon="cog-6-tooth" wire:navigate>
-                        {{ __('App Settings') }}
+                    <flux:menu.item :href="route('settings.units')" icon="cog" wire:navigate>
+                        {{ __('Settings') }}
                     </flux:menu.item>
                 @endif
-            @else
-                <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                    {{ __('Settings') }}
-                </flux:menu.item>
+
+                <flux:menu.separator />
             @endif
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf

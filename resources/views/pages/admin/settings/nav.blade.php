@@ -5,24 +5,24 @@
         </flux:button>
 
         <div class="flex items-center gap-4">
-            <flux:avatar icon="cog-6-tooth" color="zinc" class="!rounded-lg" />
+            <flux:avatar icon="cog" color="zinc" class="!rounded-lg" />
             <div class="space-y-0.5">
-                <flux:heading size="xl" level="1" class="tracking-tight">App Settings</flux:heading>
+                <flux:heading size="xl" level="1" class="tracking-tight">Settings</flux:heading>
                 <flux:text>Pengaturan global yang berlaku untuk semua unit.</flux:text>
             </div>
         </div>
     </div>
 
     <flux:navbar class="-mb-px border-b border-zinc-200 dark:border-white/10">
-        <flux:navbar.item icon="building-office-2" :href="route('app-settings.units')"
+        <flux:navbar.item icon="building-office-2" :href="route('settings.units')"
             :current="($tab ?? null) === 'units'" wire:navigate>
             Unit
         </flux:navbar.item>
-        <flux:navbar.item icon="calendar-days" :href="route('app-settings.academic-periods')"
+        <flux:navbar.item icon="calendar-days" :href="route('settings.academic-periods')"
             :current="($tab ?? null) === 'academic-periods'" wire:navigate>
             Tahun Ajaran
         </flux:navbar.item>
-        <flux:navbar.item icon="squares-2x2" :href="route('app-settings.modules')"
+        <flux:navbar.item icon="squares-2x2" :href="route('settings.modules')"
             :current="($tab ?? null) === 'modules'" wire:navigate>
             Modul
         </flux:navbar.item>

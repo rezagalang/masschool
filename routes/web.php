@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\AppSettingsController;
 use App\Http\Controllers\Kesiswaan\RegistrationProofController;
 use App\Http\Controllers\ModuleSelectionController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UnitSelectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.auth.login')->name('home');
 
-// Sebelum route {unit} agar /settings tidak tertangkap.
-require __DIR__ . '/settings.php';
+// Preferences (profil, keamanan, tampilan). Sebelum route {unit} agar /preferences tidak tertangkap.
+require __DIR__ . '/preferences.php';
 
 // Halaman publik per unit (tanpa login): /{kode-unit}/ppdb.
 Route::middleware('unit.public')
@@ -26,17 +26,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Khusus Kepsek: daftar semua unit.
     Route::get('pilih-unit', [UnitSelectionController::class, 'index'])->name('units.select');
 
-    // Pengaturan aplikasi (global): hanya Kepsek.
+    // Settings aplikasi (global: unit, modul, tahun ajaran): hanya Kepsek.
     Route::middleware('headmaster')
         ->prefix('pengaturan')
-        ->name('app-settings.')
+        ->name('settings.')
         ->group(function () {
             Route::redirect('/', '/pengaturan/unit');
-            Route::livewire('unit', 'pages::admin.app-settings.units')->name('units');
-            Route::get('modul', [AppSettingsController::class, 'modules'])->name('modules');
+            Route::livewire('unit', 'pages::admin.settings.units')->name('units');
+            Route::get('modul', [SettingsController::class, 'modules'])->name('modules');
 
             // Tahun ajaran (global).
-            Route::livewire('tahun-ajaran', 'pages::admin.app-settings.academic-periods')->name('academic-periods');
+            Route::livewire('tahun-ajaran', 'pages::admin.settings.academic-periods')->name('academic-periods');
         });
 
     // Semua halaman unit: /{kode-unit}.

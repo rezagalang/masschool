@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AppSettingsController;
+use App\Http\Controllers\SettingsController;
 use App\Models\AcademicPeriod;
 use App\Support\AcademicYear;
 use Flux\Flux;
@@ -20,7 +20,7 @@ new #[Title('Tahun Ajaran')] #[Layout('layouts::app.header')] class extends Comp
     {
         $this->guard();
 
-        $this->backUrl = app(AppSettingsController::class)->backUrl(request());
+        $this->backUrl = app(SettingsController::class)->backUrl(request());
     }
 
     // Data halaman: aktifkan periode hari ini via active() sebelum baca daftar.
@@ -86,7 +86,7 @@ new #[Title('Tahun Ajaran')] #[Layout('layouts::app.header')] class extends Comp
 
 <flux:main container>
     <div class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 py-10">
-        @include('pages.admin.app-settings.nav', ['tab' => 'academic-periods'])
+        @include('pages.admin.settings.nav', ['tab' => 'academic-periods'])
 
         <!-- Ringkasan -->
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">

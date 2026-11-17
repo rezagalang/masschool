@@ -1,7 +1,7 @@
-<x-layouts::app.header :title="__('App Settings')">
+<x-layouts::app.header :title="__('Settings')">
     <flux:main container>
         <div class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 py-10">
-            @include('pages.admin.app-settings.nav', ['tab' => 'modules'])
+            @include('pages.admin.settings.nav', ['tab' => 'modules'])
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($modules as $key => $module)

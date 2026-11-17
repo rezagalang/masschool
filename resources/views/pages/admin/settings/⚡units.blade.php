@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AppSettingsController;
+use App\Http\Controllers\SettingsController;
 use App\Models\Unit;
 use Flux\Flux;
 use Livewire\Attributes\Computed;
@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 // Pengaturan unit global.
-new #[Title('App Settings')] #[Layout('layouts::app.header')] class extends Component {
+new #[Title('Settings')] #[Layout('layouts::app.header')] class extends Component {
     #[Locked]
     public string $backUrl = '';
 
@@ -25,7 +25,7 @@ new #[Title('App Settings')] #[Layout('layouts::app.header')] class extends Comp
     {
         $this->guard();
 
-        $this->backUrl = app(AppSettingsController::class)->backUrl(request());
+        $this->backUrl = app(SettingsController::class)->backUrl(request());
     }
 
     #[Computed]
@@ -108,7 +108,7 @@ new #[Title('App Settings')] #[Layout('layouts::app.header')] class extends Comp
         show(id) { return !this.q || this.items[id].includes(this.q.toLowerCase()) },
         get empty() { return Object.keys(this.items).every(id => !this.show(id)) },
     }" class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 py-10">
-        @include('pages.admin.app-settings.nav', ['tab' => 'units'])
+        @include('pages.admin.settings.nav', ['tab' => 'units'])
 
         <!-- Ringkasan -->
         <div class="grid grid-cols-3 gap-3 sm:gap-4">

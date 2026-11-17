@@ -6,23 +6,23 @@ use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AppSettingsController extends Controller
+class SettingsController extends Controller
 {
     public function modules(Request $request): View
     {
-        return view('pages.admin.app-settings.modules', [
+        return view('pages.admin.settings.modules', [
             'modules' => config('modules'),
             'backUrl' => $this->backUrl($request),
         ]);
     }
 
-    // Dipakai juga oleh halaman Livewire App Settings (mis. Tahun Ajaran).
+    // Dipakai juga oleh halaman Livewire Settings (mis. Tahun Ajaran).
     public function backUrl(Request $request): string
     {
         $previous = url()->previous();
         $path = parse_url($previous, PHP_URL_PATH) ?: '/';
 
-        if ($path !== '/' && ! str_starts_with($path, '/pengaturan')) {
+        if ($path !== '/' && ! str_starts_with($path, '/pengaturan') && ! str_starts_with($path, '/preferences')) {
             session()->put('settings_back', $previous);
         }
 
