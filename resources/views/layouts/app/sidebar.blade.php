@@ -93,7 +93,7 @@
 
                 <flux:sidebar.item icon="home"
                     :href="route('unit.dashboard', ['unit' => $currentUnit, 'module' => $moduleKey])"
-                    :current="request()->routeIs('unit.dashboard')" wire:navigate>
+                    :current="request()->routeIs('unit.dashboard', $moduleKey . '.dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:sidebar.item>
 

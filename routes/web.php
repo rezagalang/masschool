@@ -48,6 +48,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ])
         ->group(function () {
             Route::get('/', [ModuleSelectionController::class, 'index'])->name('modules.select');
+            // Dashboard Livewire per modul: harus sebelum route generik {module}/dashboard.
+            Route::livewire('kesiswaan/dashboard', 'pages::kesiswaan.dashboard')->name('kesiswaan.dashboard');
+
             Route::get('{module}/dashboard', [ModuleSelectionController::class, 'dashboard'])->name('unit.dashboard');
 
             // Modul Kesiswaan.

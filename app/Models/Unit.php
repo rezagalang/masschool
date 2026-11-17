@@ -15,6 +15,20 @@ class Unit extends Model
         return 'code';
     }
 
+    // Logo unit: assets/images/units/{kode-unit}.(png|webp|svg|jpeg|jpg).
+    public function logoUrl(): ?string
+    {
+        foreach (["png", "webp", "svg", "jpeg", "jpg"] as $ext) {
+            $path = "assets/images/units/{$this->code}.{$ext}";
+
+            if (is_file(public_path($path))) {
+                return asset($path);
+            }
+        }
+
+        return null;
+    }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(
