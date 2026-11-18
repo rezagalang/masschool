@@ -85,5 +85,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('calon-siswa/{registration}/bukti', RegistrationProofController::class)
                     ->whereNumber('registration')->name('registrations.proof');
             });
+
+            // Modul Keuangan.
+            Route::prefix('keuangan')->name('keuangan.')->group(function () {
+                // Master jenis pembayaran.
+                Route::livewire('jenis-pembayaran', 'pages::keuangan.payment-types.index')->name('payment-types.index');
+            });
         });
 });

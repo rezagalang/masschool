@@ -65,6 +65,14 @@ return [
         'icon' => 'banknotes',
         'tone' => 'sky',
         'description' => 'Tagihan, pembayaran, dan laporan keuangan.',
+        'menu' => [
+            [
+                'label' => 'Jenis Pembayaran',
+                'icon' => 'wallet',
+                'route' => 'keuangan.payment-types.index',
+                'active' => 'keuangan.payment-types.*',
+            ],
+        ],
     ],
     'toko' => [
         'label' => 'Toko',
